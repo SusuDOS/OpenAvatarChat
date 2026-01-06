@@ -19,7 +19,7 @@ mkdir -p "$MODEL_DIR/face-parse-bisent"
 pip install -U "huggingface_hub[cli]"
 
 # Set HuggingFace mirror (for use in mainland China)
-export HF_ENDPOINT=https://hf-mirror.com
+# export HF_ENDPOINT=https://hf-mirror.com
 
 # Download MuseTalk weights (TMElyralab/MuseTalk) - download to root directory, may contain subdirectories
 echo "Downloading MuseTalk main weights to $MUSETALK_ROOT_DIR..."
@@ -31,7 +31,10 @@ hf download stabilityai/sd-vae-ft-mse --local-dir "$MODEL_DIR/sd-vae"
 
 
 echo "Downloading Whisper weights to $MUSETALK_ROOT_DIR/whisper..."
-hf download openai/whisper-tiny --local-dir "$MUSETALK_ROOT_DIR/whisper" --include "config.json" "pytorch_model.bin" "preprocessor_config.json"
+hf download openai/whisper-tiny --local-dir "$MUSETALK_ROOT_DIR/whisper" --include "config.json"
+hf download openai/whisper-tiny --local-dir "$MUSETALK_ROOT_DIR/whisper" --include "cpytorch_model.bin"
+hf download openai/whisper-tiny --local-dir "$MUSETALK_ROOT_DIR/whisper" --include "preprocessor_config.json"
+# hf download openai/whisper-tiny --local-dir "$MUSETALK_ROOT_DIR/whisper"
 
 echo "Downloading DWPose weights to $MUSETALK_ROOT_DIR/dwpose..."
 hf download yzd-v/DWPose --local-dir "$MUSETALK_ROOT_DIR/dwpose" --include "dw-ll_ucoco_384.pth"
@@ -42,7 +45,8 @@ hf download ByteDance/LatentSync --local-dir "$MUSETALK_ROOT_DIR/syncnet" --incl
 
 
 echo "Downloading Face Parse Bisent weights to $MODEL_DIR/face-parse-bisent..."
-hf download ManyOtherFunctions/face-parse-bisent --local-dir "$MODEL_DIR/face-parse-bisent" --include "79999_iter.pth" "resnet18-5c106cde.pth"
+hf download ManyOtherFunctions/face-parse-bisent --local-dir "$MODEL_DIR/face-parse-bisent" --include "79999_iter.pth"
+hf download ManyOtherFunctions/face-parse-bisent --local-dir "$MODEL_DIR/face-parse-bisent" --include "resnet18-5c106cde.pth"
 
 echo "Downloading s3fd-619a316812 weights to $MUSETALK_ROOT_DIR/s3fd-619a316812..."
 git clone https://www.modelscope.cn/HaveAnApplePie/s3fd-619a316812.git $MUSETALK_ROOT_DIR/s3fd-619a316812
